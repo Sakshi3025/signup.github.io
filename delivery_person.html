@@ -1,0 +1,739 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Delivery Person Profile Page</title>
+    <link rel="stylesheet" href="css/delivery.css" />
+    <style>
+        body {
+    font-family: Arial, sans-serif;
+    margin: 20px;
+    padding: 0;
+    box-sizing: border-box;
+    background-color: #f4f4f4;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  .container {
+    width: 80%;
+    margin: auto;
+    padding: 20px;
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    margin-top: 63px;
+  }
+  h2 {
+    text-align: center;
+    margin: 20px 10px;
+    background-color: #16a290;
+    padding: 10px;
+    border-radius: 5px;
+    color: #fff;
+  }
+  .form-group {
+    margin: 10px;
+  }
+  .form-group label {
+    display: block;
+    margin-bottom: 5px;
+  }
+  .form-group input,
+  .form-group select,
+  .form-group textarea {
+    width: 99%;
+    padding: 5px;
+    margin: 2px;
+    font-size: large;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+  }
+  .form-group input[type="file"] {
+    padding: 3px;
+  }
+  .form-group textarea {
+    resize: vertical;
+  }
+  .form-group .availability {
+    display: flex;
+    flex-wrap: wrap;
+  }
+  .form-group .availability input {
+    width: auto;
+    margin-right: 10px;
+  }
+  .form-group .availability label {
+    margin-right: 20px;
+    display: flex;
+    align-items: center;
+  }
+  .form-group button {
+    width: 100%;
+    padding: 10px;
+    background-color:#16a290;
+    border: none;
+    color: white;
+    font-size: 16px;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  .form-group button:hover {
+    background-color:#16a290;
+  }
+  
+.signupdrop ul {
+    display: none;
+    position: absolute;
+    top: 53px;
+    right: 26px;
+    background-color: white;
+    color: black;
+    width: 40vw;
+    list-style: none;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border-radius: 5px;
+    padding-left: 0px;
+    box-shadow: 6px 5px 12px black;
+}
+.signupdrop{
+    display: flex;
+    justify-content: space-between;
+    background-color: transparent;
+    align-items: center;
+}
+.signupdrop ul li {
+    width: 100%;
+    display: flex;
+    justify-content: start;
+    align-items: center;
+    gap: 9px;
+    padding: 10px 0px;
+    padding-left: 5px; /* Adjust this value as needed */
+    border-radius: 5px;
+    box-sizing: border-box; /* Ensure padding is included in width */
+    text-align: var(150px);
+}
+.signupdrop ul li a {
+    text-decoration: none;
+    color: black;
+    display: flex;
+    justify-content: start;
+    gap: 9px;
+    align-items: center;
+    width: 100%;
+}
+.signupdrop ul li:hover {
+    background-color: lightgray;
+}
+.signup-toggle{
+    background-color: transparent;
+    border: none;
+    color:white;
+    font-size: 22px;
+}
+.signupdrop ul.show {
+    display: flex;
+}
+
+  
+  @media (max-width: 768px) {
+    .container {
+      max-width: 90%;
+      padding: 15px;
+    }
+    .form-group input,
+    .form-group select,
+    .form-group textarea {
+      padding: 8px;
+    }
+    .form-group button {
+      padding: 8px;
+      font-size: 14px;
+    }
+    .form-group .availability label {
+      margin-right: 10px;
+    }
+  }
+  
+  @media (max-width: 480px) {
+    .container {
+      max-width: 100%;
+      padding: 10px;
+    }
+    .form-group input,
+    .form-group select,
+    .form-group textarea {
+      padding: 6px;
+    }
+    .form-group button {
+      padding: 6px;
+      font-size: 12px;
+    }
+    .form-group .availability {
+      flex-direction: column;
+    }
+    .form-group .availability label {
+      margin-right: 0;
+      margin-bottom: 5px;
+    }
+  }
+
+  /* navbar */
+    
+header {
+  background-color: #16a290;
+  color: #fff;
+  position: fixed;
+  width: 100%;
+  z-index: 100;
+  top: 0;
+}
+
+.heading {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+nav {
+  /* display: flex ; */
+  align-items: center;
+  padding-left: 5px;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 3px;
+}
+
+.logo img {
+  border-radius: 10px;
+}
+
+.logo h1 {
+  font-size: 17px;
+}
+
+
+/* Navigation menu styles */
+.dropdown ul {
+  display: none;
+  position: absolute;
+  top: 68px;
+  left: 26px;
+  background-color: white;
+  color: black;
+  width: 40vw;
+  list-style: none;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  border-radius: 5px;
+  padding-left: 0px;
+  box-shadow: 6px 5px 12px black;
+  z-index: 10;
+}
+
+.dropdown {
+  display: flex;
+  justify-content: space-between;
+  background-color: #76e1d3;
+  align-items: center;
+}
+
+.dropdown ul li {
+  width: 100%;
+  display: flex;
+  justify-content: start;
+  align-items: center;
+  gap: 9px;
+  padding: 10px 0px;
+  padding-left: 5px;
+  /* Adjust this value as needed */
+  border-radius: 5px;
+  box-sizing: border-box;
+  /* Ensure padding is included in width */
+  text-align: var(150px);
+}
+
+.dropdown ul li:hover {
+  background-color: lightgray;
+}
+
+
+.dropdown ul li a {
+  text-decoration: none;
+  color: black;
+  display: flex;
+  justify-content: start;
+  gap: 9px;
+  align-items: center;
+  width: 100%;
+}
+
+.menu-toggle {
+  background-color: transparent;
+  border: none;
+  color: white;
+  font-size: 22px;
+}
+
+.dropdown ul.show {
+  display: flex;
+}
+
+.Profile {
+  width: 20px;
+  height: 20px;
+  padding-top: 5px;
+
+}
+
+li img {
+  width: 20px;
+  height: 20px;
+}
+
+.signlog {
+  display: flex;
+}
+
+.signupdrop ul {
+  display: none;
+  position: absolute;
+  top: 32px;
+  right: 26px;
+  background-color: white;
+  color: black;
+  width: 40vw;
+  list-style: none;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  border-radius: 5px;
+  padding-left: 0px;
+  box-shadow: 6px 5px 12px black;
+}
+
+.signupdrop {
+  display: flex;
+  justify-content: space-between;
+  background-color: transparent;
+  align-items: center;
+}
+
+.signupdrop ul li {
+  width: 100%;
+  display: flex;
+  justify-content: start;
+  align-items: center;
+  gap: 9px;
+  padding: 10px 0px;
+  padding-left: 5px;
+  /* Adjust this value as needed */
+  border-radius: 5px;
+  box-sizing: border-box;
+  /* Ensure padding is included in width */
+  text-align: var(150px);
+}
+
+.signupdrop ul li a {
+  text-decoration: none;
+  color: black;
+  display: flex;
+  justify-content: start;
+  gap: 9px;
+  align-items: center;
+  width: 100%;
+}
+
+.signupdrop ul li:hover {
+  background-color: lightgray;
+}
+
+.signup-toggle {
+  background-color: transparent;
+  border: none;
+  color: white;
+  font-size: 10px;
+}
+.signup-toggle a{
+  text-decoration: none;
+  color: white;
+}
+.signupdrop ul.show {
+  display: flex;
+}
+
+.filters ol {
+  display: none;
+  position: absolute;
+  top: 68px;
+  right: 26px;
+  background-color: white;
+  color: black;
+  width: 40vw;
+  list-style: none;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  border-radius: 5px;
+  padding-left: 0px;
+  box-shadow: -6px 5px 12px black;
+
+}
+
+.filters ol li {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 9px;
+  padding: 10px 0px;
+  padding-left: 10px;
+  /* Adjust this value as needed */
+  padding-right: 10px;
+  /* Adjust this value as needed */
+  border-radius: 5px;
+  box-sizing: border-box;
+  /* Ensure padding is included in width */
+  text-align: var(150px);
+}
+
+.filters ol li a {
+  text-decoration: none;
+  color: black;
+  display: inline-block;
+}
+
+.filter-toggle {
+  background-color: transparent;
+  border: none;
+  color: black;
+  font-size: 17px;
+}
+
+.filters ol.show {
+  display: flex;
+}
+
+.filters ol li:hover {
+  background-color: lightgray;
+}
+
+.login {
+  background-color: transparent;
+  border: none;
+  font-size: 10px;
+
+}
+
+.login a {
+  text-decoration: none;
+  color: white;
+}
+
+
+
+@media screen and (min-width: 700px) {
+
+  .dropdown ul {
+      width: 20vw;
+      top: 82px;
+      left: 40px;
+  }
+
+  .dropdown ul li {
+      padding-left: 10px;
+  }
+
+  .filters ol {
+      width: 20vw;
+      top: 82px;
+      right: 70px;
+  }
+
+  .signupdrop ul {
+      width: 20vw;
+      top: 46px;
+      right: 70px;
+  }
+
+  .Profile {
+      width: 30px;
+      height: 30px;
+  }
+
+  .login {
+      font-size: 17px;
+  }
+
+  .signup-toggle {
+      font-size: 17px;
+  }
+
+  .searchbar {
+      width: 70%;
+      padding: 7px 5px;
+  }
+}
+
+
+@media screen and (min-width: 1300px) {
+  .dropdown ul {
+      width: 10vw;
+  }
+
+  .filters ol {
+      width: 10vw;
+  }
+
+  .signupdrop ul {
+      width: 10vw;
+  }
+}
+  
+  @media (max-width: 480px) {
+    .form-container {
+      max-width: 100%;
+      padding: 10px;
+    }
+    .form-group input,
+    .form-group select,
+    .form-group textarea {
+      padding: 6px;
+    }
+    .form-group button {
+      padding: 8px;
+      font-size: 12px;
+    }
+  }
+  
+/* Cart */
+.cart-box {
+  position: relative;
+}
+
+.item-In-Cart {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  background-color: red;
+  color: white;
+  border-radius: 20%;
+  font-size: 8px;
+  padding: 0px 2px;
+}
+
+    </style>
+  </head>
+  <body>
+    <header>
+        <nav>
+            <div class="logo">
+                <img width="30" src="images/logo.png" alt="Logo">
+                <h1>KhanaDotCom</h1>
+                <div class="signlog">
+                    <button class="login loginButton"><a href="login.html">LogIn</a></button>
+                    <div class="signupdrop">
+                        <button class="signup-toggle" id="signup-toggle"><a href="delivery_person.html">SignUp</a></button>
+                    </div>
+                </div>
+            </div>
+        </nav>
+
+        <div class="dropdown">
+            <button class="menu-toggle" id="menu-toggle"><img src="images/Menu.webp" alt="" width="27"></button>
+            <ul id="nav-menu" class="mobile-menu">
+                <li><a href="index.html"><img src="images/Home.png" alt="">Home</a> </li>
+                <li><a href="menu.html"><img src="images/Menu.webp" alt="">Menu</a> </li>
+                <li>
+                    <div class="cart-box">
+                        <img src="images/Cart.png" alt="">
+                        <span class="item-In-Cart" id="itemincart">0</span>
+                    </div>
+                    <a href="">Cart</a>
+                </li>
+                <li><a href="order.html"><img src="images/Order.png" alt="">Orders</a> </li>
+                <li><a href="profile.html"><img src="images/Profile.jpg" alt="">Profile</a> </li>
+                <li><a href="t&c.html"><img src="images/Help.webp" alt="">Help/Support</a> </li>
+                <li><a href="login.html"><img src="images/Login.png" alt=""><span class="loginButton">Login</span></a>
+                </li>
+            </ul>
+            <div class="filters">
+                <button class="filter-toggle" id="filter-toggle">Filters</button>
+                <ol id="filter-menu" class="filter-menu">
+                    <li>Dhaba <input type="checkbox"></li>
+                    <li>Most Rated <input type="checkbox"></li>
+                    <li>Chinese Retro <input type="checkbox"></li>
+                    <li>Subway <input type="checkbox"></li>
+                </ol>
+            </div>
+        </div>
+    </header>
+    
+    <div class="container">
+      <h2>Delivery Person Details Form</h2>
+      <form>
+        <div class="form-group">
+          <label for="name">Name</label>
+          <input type="text" id="name" name="name" required />
+        </div>
+        <div class="form-group">
+          <label for="contact">Contact Information (Phone, Email)</label>
+          <input type="text" id="contact" name="contact" required />
+        </div>
+        <div class="form-group">
+          <label for="address">Address</label>
+          <input type="text" id="address" name="address" required />
+        </div>
+        <div class="form-group">
+          <label for="profile-picture">Profile Picture</label>
+          <input
+            type="file"
+            id="profile-picture"
+            name="profile-picture"
+            accept="image/*"
+            required />
+        </div>
+        <div class="form-group">
+          <label for="vehicle">Vehicle Information (Type, License Plate)</label>
+          <input type="text" id="vehicle" name="vehicle" required />
+        </div>
+        <div class="form-group">
+          <label>Availability Schedule</label>
+          <div class="availability">
+            <label
+              ><input type="checkbox" name="availability" value="Monday" />
+              Monday</label
+            >
+            <label
+              ><input type="checkbox" name="availability" value="Tuesday" />
+              Tuesday</label
+            >
+            <label
+              ><input type="checkbox" name="availability" value="Wednesday" />
+              Wednesday</label
+            >
+            <label
+              ><input type="checkbox" name="availability" value="Thursday" />
+              Thursday</label
+            >
+            <label
+              ><input type="checkbox" name="availability" value="Friday" />
+              Friday</label
+            >
+            <label
+              ><input type="checkbox" name="availability" value="Saturday" />
+              Saturday</label
+            >
+            <label
+              ><input type="checkbox" name="availability" value="Sunday" />
+              Sunday</label
+            >
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="background-check">Background Check Documents</label>
+          <input
+            type="file"
+            id="background-check"
+            name="background-check"
+            accept=".pdf,.doc,.docx"
+            required />
+        </div>
+        <div class="form-group">
+          <label for="bank-account"
+            >Bank Account Information for Payments</label
+          >
+          <input type="text" id="bank-account" name="bank-account" required />
+        </div>
+        <div class="form-group">
+          <button type="submit">Submit</button>
+        </div>
+      </form>
+    </div>
+  </body>
+</html>
+
+    <script>
+        // navbar
+        const navMenu = document.getElementById('nav-menu');
+        const filterMenu = document.getElementById('filter-menu');
+
+        document.getElementById('menu-toggle').addEventListener('click', function (event) {
+            event.stopPropagation();
+            navMenu.classList.toggle('show');
+            filterMenu.classList.remove("show");
+        });
+
+        document.getElementById('filter-toggle').addEventListener('click', function (event) {
+            event.stopPropagation();
+            filterMenu.classList.toggle('show');
+            navMenu.classList.remove("show");
+        });
+
+        document.getElementById('signup-toggle').addEventListener('click', function (event) {
+            event.stopPropagation();
+            navMenu.classList.remove("show");
+            filterMenu.classList.remove("show");
+        });
+
+        document.addEventListener('click', function (event) {
+            if (!navMenu.contains(event.target) && !filterMenu.contains(event.target)) {
+                navMenu.classList.remove("show");
+                filterMenu.classList.remove("show");
+            }
+        });
+
+        //register
+      document
+        .getElementById("registrationForm")
+        .addEventListener("submit", function (event) {
+          event.preventDefault();
+
+          const formData = new FormData(event.target);
+          const data = {};
+          formData.forEach((value, key) => {
+            data[key] = value;
+          });
+
+          console.log(data); // Check the data structure in the console
+
+          fetch("http://13.201.28.236:8000/signup/", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify(data),
+          })
+            .then((response) => {
+              if (!response.ok) {
+                return response.text().then((text) => {
+                  throw new Error(text);
+                });
+              }
+              return response.json();
+            })
+            .then((responseData) => {
+              console.log(responseData);
+              alert("Registration Successful!");
+              event.target.reset();
+            })
+            .catch((error) => {
+              console.error(
+                "There was a problem with the fetch operation:",
+                error
+              );
+              alert("Registration failed. Please try again.");
+            });
+        });
+    </script>
+  </body>
+</html>
