@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>User Login</title>
+    <link rel="stylesheet" href="css/login.css">
+    <link rel="stylesheet" href="css/Font.css" />
+    <link
+    href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
+    rel="stylesheet">
+</head>
+
+<body class="poppins-regular">
+    <header>
+        <nav>
+            <div class="logo">
+                <img width="30" src="images/logo.png" alt="Logo" />
+                <h1>KhanaDotCom</h1>
+                <div class="signlog">
+                    <button class="login loginButton"><a href="login.html">LogIn</a></button>
+                    <div class="signupdrop">
+                        <button class="signup-toggle" id="signup-toggle">
+                            <a href="customer.html">SignUp</a>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </nav>
+
+        <div class="dropdown">
+            <button class="menu-toggle" id="menu-toggle">
+                <img src="images/Menu.webp" alt="" width="27" />
+            </button>
+            <ul id="nav-menu" class="mobile-menu">
+                <li>
+                    <a href="index.html"><img src="images/Home.png" alt="" />Home</a>
+                </li>
+                <li>
+                    <a href="menu.html"><img src="images/Menu.webp" alt="" />Menu</a>
+                </li>
+                <li>
+                    <div class="cart-box">
+                        <img src="images/Cart.png" alt="" />
+                        <span class="item-In-Cart" id="itemincart">0</span>
+                    </div>
+                    <a href="">Cart</a>
+                </li>
+                <li>
+                    <a href="order.html"><img src="images/Order.png" alt="" />Orders</a>
+                </li>
+                <li>
+                    <a href="profile.html"><img src="images/Profile.jpg" alt="" />Profile</a>
+                </li>
+                <li>
+                    <a href="t&c.html"><img src="images/Help.webp" alt="" />Help/Support</a>
+                </li>
+                <li>
+                    <a href="login.html"><img src="images/Login.png" alt="" /><span class="loginButton">Login</span></a>
+                </li>
+            </ul>
+            <div class="filters">
+                <button class="filter-toggle" id="filter-toggle">Filters</button>
+                <ol id="filter-menu" class="filter-menu">
+                    <li>Dhaba <input type="checkbox" /></li>
+                    <li>Most Rated <input type="checkbox" /></li>
+                    <li>Chinese Retro <input type="checkbox" /></li>
+                    <li>Subway <input type="checkbox" /></li>
+                </ol>
+            </div>
+        </div>
+    </header>
+
+    <div class="main">
+        <!-- Login Container -->
+        <div class="login-container">
+            <h2>Login</h2>
+            <form id="login-form">
+                <input type="text" id="email" name="email" placeholder="Email" required />
+                <input type="password" id="password" name="password" placeholder="Password" required />
+                <button type="submit">Login</button>
+            </form>
+            <a href="#" id="forgot-password" class="register-link">Forgot your password?</a>
+            <a href="customer.html" class="register-link">Don't have an account? SignUp</a>
+        </div>
+
+        <!-- Password Reset Container -->
+        <div class="password-reset-container">
+            <h2>Reset Password</h2>
+            <form id="password-reset-form">
+                <input type="email" id="reset-email" name="reset-email" placeholder="Enter your email" required />
+                <button type="submit">Send Reset Link</button>
+            </form>
+            <a href="#" id="back-to-login" class="register-link">Back to Login</a>
+        </div>
+
+        <!-- Password Reset Confirmation Container -->
+        <div class="password-reset-confirm-container">
+            <h2>Set New Password</h2>
+            <form id="password-reset-confirm-form">
+                <input type="password" id="new-password" name="new-password" placeholder="New Password" required />
+                <button type="submit">Set New Password</button>
+            </form>
+            <input type="hidden" id="uidb64" name="uidb64" />
+            <input type="hidden" id="token" name="token" />
+        </div>
+    </div>
+    <script src="js/auth.js"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const navMenu = document.getElementById("nav-menu");
+            const filterMenu = document.getElementById("filter-menu");
+            const signupMenu = document.getElementById("sign-menu");
+
+            document.getElementById("menu-toggle").addEventListener("click", function (event) {
+                event.stopPropagation();
+                navMenu.classList.toggle("show");
+                filterMenu.classList.remove("show");
+                if (signupMenu) signupMenu.classList.remove("show");
+            });
+
+            document.getElementById("filter-toggle").addEventListener("click", function (event) {
+                event.stopPropagation();
+                filterMenu.classList.toggle("show");
+                navMenu.classList.remove("show");
+                if (signupMenu) signupMenu.classList.remove("show");
+            });
+
+            document.getElementById("signup-toggle").addEventListener("click", function (event) {
+                event.stopPropagation();
+                if (signupMenu) signupMenu.classList.toggle("show");
+                navMenu.classList.remove("show");
+                filterMenu.classList.remove("show");
+            });
+
+            document.addEventListener("click", function (event) {
+                if (
+                    (!navMenu || !navMenu.contains(event.target)) &&
+                    (!filterMenu || !filterMenu.contains(event.target)) &&
+                    (!signupMenu || !signupMenu.contains(event.target))
+                ) {
+                    if (navMenu) navMenu.classList.remove("show");
+                    if (filterMenu) filterMenu.classList.remove("show");
+                    if (signupMenu) signupMenu.classList.remove("show");
+                }
+            });
+
+            // API URLs
+            const loginApiUrl = 'http://13.201.28.236:8000/login/';
+            const passwordResetApiUrl = 'http://13.201.28.236:8000/password-reset/';
+            const passwordResetConfirmApiUrl = (uidb64, token) => `http://13.201.28.236:8000/password-reset-confirm/${uidb64}/${token}/`;
+
+            // Function to get and store tokens
+            async function loginUser(email, password) {
+                try {
+                    const response = await fetch(loginApiUrl, {
+                        method: "POST",
+                        headers: {
+                            "Content-Type": "application/json",
+                        },
+                        body: JSON.stringify({ email, password }),
+                    });
+
+                    if (!response.ok) {
+                        const errorResponse = await response.text(); // Get detailed error message
+                        throw new Error(`Login API call failed: ${response.statusText}`);
+                    }
+
+                    const data = await response.json();
+                    if (data.success && data.access_token) {
+                        localStorage.setItem("accessToken", data.access_token);
+                        localStorage.setItem("userRole", data.user_type); // Save the user role
+                        return data.access_token;
+                    } else {
+                        throw new Error("Access token not found in login API response.");
+                    }
+                } catch (error) {
+                    console.error("Login error:", error);
+                    alert("Failed to log in. Please check your credentials and try again.");
+                }
+            }
+
+            // Event listener for the login form submission
+            document.getElementById("login-form").addEventListener("submit", async function (event) {
+                event.preventDefault();
+
+                const email = document.getElementById("email").value;
+                const password = document.getElementById("password").value;
+
+                try {
+                    const token = await loginUser(email, password);
+
+                    if (token) {
+                        // Use the token for authenticated requests
+                        console.log("Login successful, token:", token);
+                        localStorage.setItem('isLoggedIn', 'true')
+                        
+                        window.location.href = '/profile.html';
+                    }
+                } catch (error) {
+                    console.error("Login error:", error);
+                    alert("Failed to log in. Please try again later.");
+                }
+            });
+
+
+            // Event listener for the password reset form submission
+            document.getElementById("password-reset-form").addEventListener("submit", async function (event) {
+                event.preventDefault();
+
+                const email = document.getElementById("reset-email").value;
+
+                try {
+                    const response = await fetch(passwordResetApiUrl, {
+                        method: "POST",
+                        headers: {
+                            "Content-Type": "application/json",
+                        },
+                        body: JSON.stringify({ email }),
+                    });
+
+                    if (!response.ok) {
+                        const responseText = await response.text();
+                        console.error("Password reset failed:", responseText);
+                        alert(`Password reset failed: ${responseText}`);
+                        return;
+                    }
+
+                    const data = await response.json();
+                    alert(data.success);
+                    document.querySelector(".password-reset-container").style.display = "none";
+                    document.querySelector(".login-container").style.display = "block";
+                } catch (error) {
+                    console.error("Password reset error:", error);
+                    alert("Failed to connect to the server. Please try again later.");
+                }
+            });
+
+            // Function to handle password reset confirmation
+            async function resetPasswordConfirm(uidb64, token, newPassword) {
+                try {
+                    const response = await fetch(passwordResetConfirmApiUrl(uidb64, token), {
+                        method: "POST",
+                        headers: {
+                            "Content-Type": "application/json",
+                        },
+                        body: JSON.stringify({ new_password: newPassword }),
+                    });
+
+                    if (!response.ok) {
+                        const responseText = await response.text();
+                        console.error("Password reset confirmation failed:", responseText);
+                        alert(`Password reset confirmation failed: ${responseText}`);
+                        return;
+                    }
+
+                    const data = await response.json();
+                    alert(data.message);
+                    window.location.href = '/login';
+                } catch (error) {
+                    console.error("Password reset confirmation error:", error);
+                    alert("Failed to connect to the server. Please try again later.");
+                }
+            }
+
+            // Reset Confirmation
+            document.addEventListener("DOMContentLoaded", function () {
+                const urlParams = new URLSearchParams(window.location.search);
+                const uidb64 = urlParams.get('uidb64');
+                const token = urlParams.get('token');
+
+                if (uidb64 && token) {
+                    document.querySelector("#uidb64").value = uidb64;
+                    document.querySelector("#token").value = token;
+
+                    document.querySelector(".login-container").style.display = "none";
+                    document.querySelector(".password-reset-confirm-container").style.display = "block";
+
+                    document.getElementById("password-reset-confirm-form").addEventListener("submit", async function (event) {
+                        event.preventDefault();
+                        const newPassword = document.getElementById("new-password").value;
+                        await resetPasswordConfirm(uidb64, token, newPassword);
+                    });
+                }
+            });
+
+            // Event listener for the forgot password link
+            document.getElementById("forgot-password").addEventListener("click", function (event) {
+                event.preventDefault();
+                document.querySelector(".login-container").style.display = "none";
+                document.querySelector(".password-reset-container").style.display = "block";
+            });
+
+            // Event listener for the back to login link
+            document.getElementById("back-to-login").addEventListener("click", function (event) {
+                event.preventDefault();
+                document.querySelector(".password-reset-container").style.display = "none";
+                document.querySelector(".login-container").style.display = "block";
+            });
+        });
+
+    </script>
+</body>
+
+</html>

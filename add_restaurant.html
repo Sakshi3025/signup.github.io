@@ -1,0 +1,861 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Customer Details Form</title>
+    
+    <style>
+     /* styles.css */
+
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    /* background-color: gray; */
+}
+
+header {
+    background-color: #16a290;
+    color: #fff;
+    position: fixed;
+    width: 100%;
+    z-index: 100;
+    top: 0;
+}
+
+.heading {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.ChatBot {
+    position: fixed;
+    bottom: 8px;
+    right: 8px;
+    border-radius: 50%;
+}
+
+.bot-toggle {
+    border-radius: 50%;
+    background-color: #76e1d3;
+    height: 38px;
+}
+
+.ChatBot-Box {
+    display: none;
+    position: absolute;
+    background-color: white;
+    color: black;
+    box-shadow: 6px 5px 12px black;
+    z-index: 10;
+    bottom: 47px;
+    right: 24px;
+    height: 364px;
+    width: 246px;
+}
+
+.ChatBot-Box.show {
+    display: flex;
+}
+
+nav {
+    /* display: flex ; */
+    align-items: center;
+    padding-left: 5px;
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 3px;
+}
+
+.logo img {
+    border-radius: 10px;
+}
+
+.logo h1 {
+    font-size: 17px;
+}
+
+.searchbar {
+    width: 50%;
+    border: 1px solid black;
+    border-radius: 3px;
+    background-color: transparent;
+    color: black;
+    padding: 1px 5px;
+}
+
+.searchbar::placeholder {
+    color: rgb(0, 0, 0);
+    opacity: 0.7;
+}
+
+/* Navigation menu styles */
+.dropdown ul {
+    display: none;
+    position: absolute;
+    top: 68px;
+    left: 26px;
+    background-color: white;
+    color: black;
+    width: 40vw;
+    list-style: none;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border-radius: 5px;
+    padding-left: 0px;
+    box-shadow: 6px 5px 12px black;
+    z-index: 10;
+}
+
+.dropdown {
+    display: flex;
+    justify-content: space-between;
+    background-color: #76e1d3;
+    align-items: center;
+}
+
+.dropdown ul li {
+    width: 100%;
+    display: flex;
+    justify-content: start;
+    align-items: center;
+    gap: 9px;
+    padding: 10px 0px;
+    padding-left: 5px;
+    /* Adjust this value as needed */
+    border-radius: 5px;
+    box-sizing: border-box;
+    /* Ensure padding is included in width */
+    text-align: var(150px);
+}
+
+.dropdown ul li:hover {
+    background-color: lightgray;
+}
+
+
+.dropdown ul li a {
+    text-decoration: none;
+    color: black;
+    display: flex;
+    justify-content: start;
+    gap: 9px;
+    align-items: center;
+    width: 100%;
+}
+
+.menu-toggle {
+    background-color: transparent;
+    border: none;
+    color: white;
+    font-size: 22px;
+}
+
+.dropdown ul.show {
+    display: flex;
+}
+
+.Profile {
+    width: 20px;
+    height: 20px;
+    padding-top: 5px;
+
+}
+
+li img {
+    width: 20px;
+    height: 20px;
+}
+
+.signlog {
+    display: flex;
+}
+
+.signupdrop ul {
+    display: none;
+    position: absolute;
+    top: 32px;
+    right: 26px;
+    background-color: white;
+    color: black;
+    width: 40vw;
+    list-style: none;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border-radius: 5px;
+    padding-left: 0px;
+    box-shadow: 6px 5px 12px black;
+}
+
+.signupdrop {
+    display: flex;
+    justify-content: space-between;
+    background-color: transparent;
+    align-items: center;
+}
+
+.signupdrop ul li {
+    width: 100%;
+    display: flex;
+    justify-content: start;
+    align-items: center;
+    gap: 9px;
+    padding: 10px 0px;
+    padding-left: 5px;
+    /* Adjust this value as needed */
+    border-radius: 5px;
+    box-sizing: border-box;
+    /* Ensure padding is included in width */
+    text-align: var(150px);
+}
+
+.signupdrop ul li a {
+    text-decoration: none;
+    color: black;
+    display: flex;
+    justify-content: start;
+    gap: 9px;
+    align-items: center;
+    width: 100%;
+}
+
+.signupdrop ul li:hover {
+    background-color: lightgray;
+}
+
+.signup-toggle {
+    background-color: transparent;
+    border: none;
+    color: white;
+    font-size: 10px;
+}
+
+.signupdrop ul.show {
+    display: flex;
+}
+
+.filters ol {
+    display: none;
+    position: absolute;
+    top: 68px;
+    right: 26px;
+    background-color: white;
+    color: black;
+    width: 40vw;
+    list-style: none;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border-radius: 5px;
+    padding-left: 0px;
+    box-shadow: -6px 5px 12px black;
+
+}
+
+.filters ol li {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 9px;
+    padding: 10px 0px;
+    padding-left: 10px;
+    /* Adjust this value as needed */
+    padding-right: 10px;
+    /* Adjust this value as needed */
+    border-radius: 5px;
+    box-sizing: border-box;
+    /* Ensure padding is included in width */
+    text-align: var(150px);
+}
+
+.filters ol li a {
+    text-decoration: none;
+    color: black;
+    display: inline-block;
+}
+
+.filter-toggle {
+    background-color: transparent;
+    border: none;
+    color: black;
+    font-size: 17px;
+}
+
+.filters ol.show {
+    display: flex;
+}
+
+.filters ol li:hover {
+    background-color: lightgray;
+}
+
+.login {
+    background-color: transparent;
+    border: none;
+    font-size: 10px;
+
+}
+
+.login a {
+    text-decoration: none;
+    color: white;
+
+}
+
+.logout{
+    background-color: transparent;
+    border: none;
+    font-size: 16px;
+    color: #fff;
+}
+.logout a{
+    text-decoration: none;
+    color: white;
+}
+
+/* Cart */
+.cart-box {
+    position: relative;
+}
+
+.item-In-Cart {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    background-color: red;
+    color: white;
+    border-radius: 20%;
+    font-size: 8px;
+    padding: 0px 2px;
+}
+
+main {
+    padding: 1em;
+}
+
+
+.burger {
+    width: 47%;
+    border: 1px solid gray;
+    height: 220px;
+    text-align: center;
+    border-radius: 20px;
+    animation: view linear;
+    animation-timeline: view();
+    animation-range: entry 0 cover 40%;
+}
+
+@keyframes view {
+    from {
+        opacity: 0.6;
+        scale: 0.5;
+    }
+
+    to {
+        opacity: 1;
+        scale: 1;
+    }
+}
+
+h2 {
+    text-align: center;
+}
+
+.menu {
+    text-align: center;
+    font-size: 52px;
+    margin-top: -21px;
+    margin-bottom: 30px;
+    text-decoration: underline;
+}
+
+.main h2 {
+    background-color: gray;
+    border-radius: 3px;
+}
+
+/* Add this to your styles.css */
+
+footer {
+    background-color: #16a290;
+    color: #fff;
+    padding: 20px 0;
+    text-align: center;
+    width: 100%;
+}
+
+.footer-container {
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+
+}
+section{
+    margin-top: 82px;
+}
+
+.footer-section {
+    flex: 1;
+    min-width: 200px;
+    margin: 10px;
+    animation: view linear;
+    animation-timeline: view();
+    animation-range: entry 0 cover 40%;
+}
+
+.footer-section h2 {
+    font-size: 1.5em;
+    margin-bottom: 10px;
+}
+
+.footer-section p,
+.footer-section a {
+    color: #ccc;
+    text-decoration: none;
+    font-size: 1em;
+}
+
+.footer-section a:hover {
+    text-decoration: underline;
+}
+
+.footer-section img {
+    width: 30px;
+    margin: 5px;
+}
+
+footer p {
+    margin-top: 20px;
+    font-size: 0.9em;
+}
+
+.header {
+    text-align: center;
+    border-bottom: 2px solid #ddd;
+    top: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+
+@media screen and (min-width: 700px) {
+    .item-img {
+        width: 15%;
+    }
+
+    .logo h1 {
+        font-size: 22px;
+    }
+
+    
+    .menu {
+        font-size: 100px;
+        margin-top: -30px;
+    }
+
+    .slider {
+        width: 74%;
+    }
+
+    
+    .burger {
+        width: 25%;
+    }
+
+    .dropdown ul {
+        width: 20vw;
+        top: 82px;
+        left: 40px;
+    }
+
+    .dropdown ul li {
+        padding-left: 10px;
+    }
+
+    .filters ol {
+        width: 20vw;
+        top: 82px;
+        right: 70px;
+    }
+
+    .signupdrop ul {
+        width: 20vw;
+        top: 46px;
+        right: 70px;
+    }
+
+    .Profile {
+        width: 30px;
+        height: 30px;
+    }
+
+    .login {
+        font-size: 17px;
+    }
+
+    .signup-toggle {
+        font-size: 17px;
+    }
+
+    .searchbar {
+        width: 70%;
+        padding: 4px 5px;
+    }
+
+    .footer-section {
+        animation-range: entry 0 cover 10%;
+    }
+    .ChatBot {
+        bottom: 20px;
+        right: 20px;
+        border-radius: 50%;
+    }
+    .bot-toggle {
+        border-radius: 50%;
+        height: 38px;
+    }
+    .ChatBot-Box {
+        right: 45px;
+        height: 430px;
+        width: 350px;
+    }
+    section{
+        margin-top: 108px;
+    }
+    .order-summary-container{
+        margin-top: 120px;
+    }
+}
+
+@media screen and (min-width: 1300px) {
+    .dropdown ul {
+        width: 10vw;
+    }
+
+    .filters ol {
+        width: 10vw;
+    }
+
+    .signupdrop ul {
+        width: 10vw;
+    }
+}
+.restaurant-item {
+    text-align: center;
+    margin: 10px;
+  }
+  
+  .restaurant-image {
+    max-width: 100%;
+    width: 100px;
+    height: auto;
+    border-radius: 8px;
+  }
+  .form-container {
+    background-color: white;
+    border-radius: 8px;
+    width: 90%;
+   
+    align-content: center;
+    margin: 90px 100px 0px 80px
+  }
+  .form-container h2 {
+    text-align: center;
+    margin-bottom: 20px;
+    background-color: #16a290;
+    padding: 10px;
+    border-radius: 5px;
+    color: white;
+  }
+  .form-group {
+    margin-bottom: 15px;
+  }
+  .form-group label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+  }
+  .form-group input,
+  .form-group select,
+  .form-group textarea {
+    width: 95%;
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+  }
+  .form-group textarea {
+    resize: vertical;
+  }
+  .form-group button {
+    background-color: #16a290;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 4px;
+    cursor: pointer;
+    width: 100%;
+    font-size: 16px;
+  }
+  .form-group button:hover {
+    background-color: #126e62;
+  }
+  
+  @media (max-width: 700px) {
+  .form-container {
+    max-width: 100%;
+    padding: 15px;
+    margin-top: 94px;
+  }
+  .form-group input,
+  .form-group select,
+  .form-group textarea {
+    padding: 8px;
+  }
+  .form-group button {
+    padding: 10px;
+    font-size: 14px;
+  }
+}  
+  @media (max-width: 480px) {
+    .form-container {
+      max-width: 80%;
+      padding: 10px;
+    }
+    .form-group input,
+    .form-group select,
+    .form-group textarea {
+      padding: 6px;
+    }
+    .form-group button {
+      padding: 8px;
+      font-size: 12px;
+    }
+  }
+  
+    </style>
+</head>
+
+<body>
+    <header>
+        <nav>
+            <div class="logo">
+                <img width="30" src="images/logo.png" alt="Logo">
+                <h1>KhanaDotCom</h1>
+                
+                <div class="signlog">
+                    <button class="login"><a href="login.html">LogIn</a></button>
+                    <div class="signupdrop">
+                        <button class="signup-toggle" id="signup-toggle">SignUp</button>
+                        <ul id="sign-menu" class="sign-menu">
+                            <li><a href="customer.html">Customer</a></li>
+                            <li><a href="deliverylogin.html">Delivery Person</a></li>
+                            <li><a href="restaurantsignup.html">Restaurant</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </nav>
+   
+
+    <div class="dropdown">
+        <button class="menu-toggle" id="menu-toggle"><img src="images/Menu.webp" alt="" width="27"></button>
+        <ul id="nav-menu" class="mobile-menu">
+            <li><a href="index.html"><img src="images/Home.png" alt="">Home</a> </li>
+            <li><a href="menu.html"><img src="images/Menu.webp" alt="">Menu</a> </li>
+            <li>
+                <div class="cart-box">
+                    <img src="images/Cart.png" alt="">
+                    <span class="item-In-Cart" id="itemincart">0</span>
+                </div>
+                <a href="">Cart</a>
+            </li>
+            <li><a href="order.html"><img src="images/Order.png" alt="">Orders</a> </li>
+            <li><a href="profile.html"><img src="images/Profile.jpg" alt="">Profile</a> </li>
+            <li><a href="t&c.html"><img src="images/Help.webp" alt="">Help/Support</a> </li>
+            <li><a href="login.html"><img src="images/Login.png" alt="">LogIn</a> </li>
+            <li><a href="poll.html"><img src="images/Login.png" alt="">Poll</a> </li>
+        </ul>
+        <input type="text" placeholder="search" class="searchbar">
+        <div class="filters">
+            <button class="filter-toggle" id="filter-toggle">Filters</button>
+            <ol id="filter-menu" class="filter-menu">
+                <li>Dhaba <input type="checkbox"></li>
+                <li>Most Rated <input type="checkbox"></li>
+                <li>Chinese Retro <input type="checkbox"></li>
+                <li>Subway <input type="checkbox"></li>
+            </ol>
+        </div>
+    </div>
+</header>
+    <!-- ChatBot -->
+     <div class="ChatBot">
+        <button class="bot-toggle" id="bot-toggle"><img width="24" height="23" src="images/Chat.png" alt="Chat"></button>
+    <iframe class="ChatBot-Box" id="ChatBot-Box"  src="https://bot.dialogflow.com/f636d101-b438-4791-b599-541b60f71404">adfgauofiuitiuhiurhui</iframe>
+</div>
+            <div class="form-container">
+                <h2>Restaurant Details</h2>
+                <form id="restaurantForm" onsubmit="handleSubmit(event)">
+                    <div class="form-group">
+                        <label for="name">Name</label>
+                        <input type="text" id="name" name="name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="address">Address</label>
+                        <textarea id="address" name="address" required></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="phone_number">Phone Number</label>
+                        <input type="text" id="phone_number" name="phone_number" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Email</label>
+                        <input type="email" id="email" name="email" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="address">Description</label>
+                        <textarea id="description" name="description" required></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="phone_number">Restaurant GST </label>
+                        <input type="text" id="restaurant_gst" name="restaurant_gst" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="profile-picture">Profile Picture</label>
+                        <input
+                          type="file"
+                          id="profile-picture"
+                          name="profile-picture"
+                          accept="image/*"
+                          required />
+                      </div>
+                    <div class="form-group">
+                        <button type="submit">Submit</button>
+                    </div>
+                </form>
+            </div>
+  
+    <footer>
+        <div class="footer-container">
+            <div class="footer-section about">
+                <h2>About</h2>
+                <p>Information about KhanaDotCom, the services we offer, and our mission.</p>
+            </div>
+            <div class="footer-section contact">
+                <h2>Contact</h2>
+                <p>Email: support@khanadotcom.com</p>
+                <p>Phone: +123-456-7890</p>
+            </div>
+            <div class="footer-section social-media">
+                <h2>Social Media</h2>
+                <a href="https://www.linkedin.com" target="_blank"><img src="images/LinkedIn.webp" alt="LinkedIn"></a>
+                <a href="https://www.instagram.com" target="_blank"><img src="images/Insta.webp" alt="Instagram"></a>
+                <a href="https://www.facebook.com" target="_blank"><img src="images/FB.webp" alt="Facebook"></a>
+            </div>
+            <div class="footer-section privacy">
+                <h2>Privacy Policy</h2>
+                <p><a href="privacy.html">Read our Privacy Policy</a></p>
+            </div>
+        </div>
+        <p>&copy; 2024 KhanaDotCom. All rights reserved.</p>
+    </footer>
+    <script src="js/auth.js"></script>
+    <script>
+       const navMenu = document.getElementById('nav-menu');
+const filterMenu = document.getElementById('filter-menu');
+const SignupMenu = document.getElementById('sign-menu');
+const ChatBot = document.getElementById('ChatBot-Box');
+
+document.getElementById('menu-toggle').addEventListener('click', function (event) {
+    event.stopPropagation();
+    navMenu.classList.toggle('show');
+    filterMenu.classList.remove("show");
+    SignupMenu.classList.remove("show");
+    ChatBot.classList.remove("show")
+});
+
+document.getElementById('filter-toggle').addEventListener('click', function (event) {
+    event.stopPropagation();
+    filterMenu.classList.toggle('show');
+    navMenu.classList.remove("show");
+    SignupMenu.classList.remove("show");
+    ChatBot.classList.remove("show")
+});
+
+document.getElementById('signup-toggle').addEventListener('click', function (event) {
+    event.stopPropagation();
+    SignupMenu.classList.toggle('show');
+    navMenu.classList.remove("show");
+    filterMenu.classList.remove("show");
+    ChatBot.classList.remove("show")
+});
+document.getElementById('bot-toggle').addEventListener('click', function (event) {
+    event.stopPropagation();
+    ChatBot.classList.toggle("show")
+    SignupMenu.classList.remove('show');
+    navMenu.classList.remove("show");
+    filterMenu.classList.remove("show");
+    
+});
+
+document.addEventListener('click', function (event) {
+    const navMenu = document.getElementById("nav-menu");
+    const filterMenu = document.getElementById('filter-menu');
+    const SignupMenu = document.getElementById('sign-menu');
+    const ChatBot = document.getElementById('ChatBot-Box');
+
+    if (!navMenu.contains(event.target) && !filterMenu.contains(event.target) && !SignupMenu.contains(event.target) && !ChatBot.contains(event.target)) {
+        navMenu.classList.remove("show");
+        filterMenu.classList.remove("show");
+        SignupMenu.classList.remove("show");
+        ChatBot.classList.remove("show")
+    }
+})
+document.getElementById('restaurantForm').addEventListener('submit', function (e) {
+    e.preventDefault();
+
+    const form = document.getElementById('restaurantForm');
+    const formData = new FormData(form);
+    const token = localStorage.getItem('authToken');
+
+    fetch('/api/add-restaurant/', {
+        method: 'POST',
+        headers: {
+            'Authorization': `Bearer ${token}`
+        },
+        body: formData
+    })
+    .then(response => response.json())
+    .then(data => {
+        const responseMessage = document.getElementById('responseMessage');
+        if (data.success) {
+            responseMessage.textContent = data.success;
+            responseMessage.style.color = 'green';
+        } else {
+            responseMessage.textContent = data.error;
+            responseMessage.style.color = 'red';
+        }
+    })
+    .catch(error => {
+        const responseMessage = document.getElementById('responseMessage');
+        responseMessage.textContent = `Error: ${error}`;
+        responseMessage.style.color = 'red';
+    });
+});
+    </script>
+<script src="js/auth.js"></script>
+</body>
+
+</html>
