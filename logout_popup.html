@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Popup</title>
+    <style>
+      .logout {
+        background-color: #16a290;
+        border: none;
+        font-size: 16px;
+        color: white;
+        padding: 5px;
+        border-radius: 5px;
+        width: 100px;
+        border-color: #16a290;
+        border-width: 4px;
+      }
+      .logout a {
+        text-decoration: none;
+        color: rgb(10, 10, 10);
+      }
+      /* popup */
+      
+      .popup-overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.5);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        z-index: 1000;
+        visibility: hidden;
+        opacity: 0;
+        transition: opacity 0.3s ease, visibility 0.3s ease;
+      }
+
+      .popup-overlay.show {
+        visibility: visible;
+        opacity: 1;
+      }
+
+      .popup-content {
+        background: white;
+        padding: 18px;
+        border-radius: 10px;
+        text-align: center;
+        width: 300px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        animation: popin 0.3s ease;
+      }
+
+      .popup-content h3 {
+        margin-bottom: 20px;
+        color: #333;
+        font-size: 18px;
+      }
+
+      .popup-buttons {
+        display: flex;
+        margin-left: 140px;
+        height: 28px;
+        width: 25px;
+      }
+
+      .popup-buttons .no-btn {
+        background: #787a79;
+        color: white;
+        border: none;
+        padding: 5px 12px 0px 12px;
+        cursor: pointer;
+        border-radius: 5px;
+        transition: background 0.2s;
+        margin-left: 10px;
+      }
+
+      .popup-buttons .no-btn:hover {
+        background: #4d4e4e;
+      }
+      .popup-buttons .yes-btn {
+        background: #16a290;
+        color: white;
+        border: none;
+        padding: 5px 12px 0px 12px;
+        cursor: pointer;
+        border-radius: 5px;
+        transition: background 0.2s;
+        margin-left: 10px;
+        float:right ;
+      }
+
+
+      /* Keyframe for popup animation */
+      @keyframes popin {
+        from {
+          transform: scale(0.8);
+          opacity: 0;
+        }
+        to {
+          transform: scale(1);
+          opacity: 1;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <button class="logout" id="logout-button">LogOut</button>
+    <script>
+      //popup
+      document.addEventListener("DOMContentLoaded", function () {
+        const logoutButton = document.getElementById("logout-button");
+
+        logoutButton.addEventListener("click", function () {
+          // Create popup overlay
+          const popupOverlay = document.createElement("div");
+          popupOverlay.className = "popup-overlay";
+
+          // Create popup content
+          const popupContent = document.createElement("div");
+          popupContent.className = "popup-content";
+
+          // Add popup message
+          const message = document.createElement("h3");
+          message.textContent = "Do you really want to logout?";
+          popupContent.appendChild(message);
+
+          // Create popup buttons container
+          const buttonsDiv = document.createElement("div");
+          buttonsDiv.className = "popup-buttons";
+
+          // Create No button
+          const noButton = document.createElement("button");
+          noButton.textContent = "No";
+          noButton.className = "no-btn";
+          noButton.addEventListener("click", function () {
+            document.body.removeChild(popupOverlay);
+          });
+          // Create Yes button
+          const yesButton = document.createElement("button");
+          yesButton.textContent = "Yes";
+          yesButton.className = "yes-btn";
+          yesButton.addEventListener("click", function () {
+            localStorage.removeItem("token");
+            alert("You have been logged out.");
+            location.reload(); // Reload the page to update the UI
+          });
+
+          // Append buttons to popup content
+          buttonsDiv.appendChild(noButton);
+          buttonsDiv.appendChild(yesButton);
+          popupContent.appendChild(buttonsDiv);
+
+          // Append content to overlay
+          popupOverlay.appendChild(popupContent);
+
+          // Append overlay to body
+          document.body.appendChild(popupOverlay);
+
+          // Show popup
+          setTimeout(function () {
+            popupOverlay.classList.add("show");
+          }, 10);
+        });
+      });
+      //working code
+    </script>
+  </body>
+</html>
